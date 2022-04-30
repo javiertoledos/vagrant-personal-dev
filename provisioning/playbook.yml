@@ -1,0 +1,35 @@
+- hosts: all
+  become: true
+  roles:
+  - role: geerlingguy.git
+  - role: geerlingguy.docker
+    vars:
+      docker_users:
+      - vagrant
+  - role: geerlingguy.php-versions
+  - role: geerlingguy.php
+    vars:
+      php_enable_webserver: false
+      php_default_version_debian: "7.4"
+      php_packages_extra: 
+        - "php-zip"
+  - role: geerlingguy.php
+    vars:
+      php_enable_webserver: false
+      php_default_version_debian: "8.1"
+      php_packages_extra: 
+        - "php-zip"
+  - role: geerlingguy.composer
+    vars:
+      composer_home_path: '/home/vagrant/.composer'
+      composer_home_owner: vagrant
+      composer_home_group: vagrant
+  - role: gantsign.inotify
+    inotify_max_user_watches: 524288
+  - role: stephdewit.nvm
+    become: true
+    become_user: vagrant
+    vars:
+      nvm_node_version: lts
+    environment:
+      NVM_DIR: /home/vagrant/.nvm

@@ -1,0 +1,8 @@
+roles:
+- geerlingguy.git
+- geerlingguy.docker
+- geerlingguy.php-versions
+- geerlingguy.php
+- geerlingguy.composer
+- gantsign.inotify
+- stephdewit.nvm
