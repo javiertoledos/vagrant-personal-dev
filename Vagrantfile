@@ -10,11 +10,17 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder "./provisioning", "/vagrant/provisioning"
 
   # Networking
-  config.vm.hostname = "dev.local"
-  config.vm.network "private_network", ip: "192.168.123.123"
+  config.vm.hostname =  ENV['VAGRANT_HOSTNAME'] || "dev.local"
+
+  if ENV['VAGRANT_PUBLIC_NETWORK'] == "1"
+    config.vm.network "public_network"  
+  end
+
+  if ENV['VAGRANT_PRIVATE_NETWORK'] == "1"
+    config.vm.network "private_network", ip: (ENV["VAGRANT_PRIVATE_NETWORK_ADDRESS"] || "192.168.123.123")
+  end
 
   config.ssh.forward_agent = true
-
 
   # Sizing
   memory_size = ENV['VAGRANT_MEMORY'] || "#{8*1024}"
