@@ -34,6 +34,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider "vmware_desktop" do |vw|
     vw.gui = false
+    vw.linked_clone = false
     vw.vmx["memsize"] = memory_size
     vw.vmx["numvcpus"] = cpus
   end
